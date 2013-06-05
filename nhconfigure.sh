@@ -30,6 +30,7 @@ sed -i -r \
 
 # fix include/config.h
 sed -i -r \
+    -e "s|(^#\s*define\s+XI18N).*$|/* \1 */|" \
     -e "s|(^#\s*define\s+WIZARD\s+).*$|\1\"`whoami`\"|" \
     -e "s|(^#\s*define\s+WIZARD_NAME\s+).*$|\1\"`whoami`\"|" \
     -e "s|(^#\s*define\s+COMPRESS\s+).*$|\1\"`which gzip`\"|" \
