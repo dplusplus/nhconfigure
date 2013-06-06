@@ -3,6 +3,13 @@ nhconfigure
 
 Fix NetHack's Makefiles and Headers for compiling on Ubuntu Linux.
 
+supported variant:
+
+* NetHack 3.4.3
+* JNetHack 3.4.3-0.11
+* Slash'EM 0.0.7E7F3
+* JSlash'EM 0.0.7E7F3-J0.2.1
+
 ----
 
 ## How to compile NetHack on Ubuntu Linux:
