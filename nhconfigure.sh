@@ -7,6 +7,10 @@ sed -i \
     -e 's|^FILEPERM.*$|FILEPERM = 0664|' \
     -e 's|^EXEPERM.*$|EXEPERM = 755|' \
     -e 's|^DIRPERM.*$|DIRPERM = 775|' \
+    -e 's|^VARFILEPERM.*$|VARFILEPERM = 664|' \
+    -e 's|^VARDIRPERM.*$|VARDIRPERM = 775|' \
+    -e 's|^GAMEDIR.*$|GAMEDIR = $(PREFIX)/games/lib/$(GAME)dir|' \
+    -e 's|^SHELLDIR.*$|SHELLDIR = $(PREFIX)/games|' \
     Makefile
 
 # fix src/Makefile
