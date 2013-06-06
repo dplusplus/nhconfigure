@@ -29,7 +29,7 @@ nethack-343-src.tgz
 
 ### 3. generate Makefiles
 
-% cd nethack-3.4.3
+% cd nethack-3.4.3  
 % sh sys/unix/setup.sh
 
 ### 4. fix Makefiles and Headers (by this script)
