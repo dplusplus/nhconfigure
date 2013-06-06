@@ -20,8 +20,7 @@ supported variant:
 
 ### 1. Download tarball
 
-Show http://sourceforge.net/projects/nethack/files/nethack/3.4.3/ and download \
-nethack-343-src.tgz
+Show http://sourceforge.net/projects/nethack/files/nethack/3.4.3/ and download nethack-343-src.tgz
 
 ### 2. Extract it
 
