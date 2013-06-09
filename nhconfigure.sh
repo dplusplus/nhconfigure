@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ ! -e Makefile -a -e sys/unix/setup.sh ] ; then
+    sh sys/unix/setup.sh
+fi
+
 # fix Makefile
 sed -i \
     -e 's|^GAMEGRP.*$|GAMEGRP = games|' \
