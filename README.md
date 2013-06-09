@@ -9,6 +9,8 @@ supported variant:
 * JNetHack 3.4.3-0.11
 * Slash'EM 0.0.7E7F3
 * JSlash'EM 0.0.7E7F3-J0.2.1
+* SporkHack 0.6.3
+* JSporkHack 0.6.0-0.1
 
 ----
 
