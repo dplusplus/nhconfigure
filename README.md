@@ -11,6 +11,7 @@ supported variant:
 * JSlash'EM 0.0.7E7F3-J0.2.1
 * SporkHack 0.6.3
 * JSporkHack 0.6.0-0.1
+* JNetHack FHS patch 0.8.25
 
 ----
 
