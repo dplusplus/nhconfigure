@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ ! -e Makefile -a -e sys/unix/setup.sh ] ; then
+    sh sys/unix/setup.sh
+fi
+
 game=`grep '^GAME ' -m1 Makefile | awk '{ print $3 }'`
 
 if [ -n "`grep -i -m1 sporkhack include/patchlevel.h`" ] ; then
