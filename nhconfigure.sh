@@ -14,6 +14,10 @@ if [ -n "`grep -i -m1 jsporkhack include/config.h`" ] ; then
     game=jsporkhack
 fi
 
+if [ -n "`grep -m1 FHS include/config.h`" ] ; then
+    game=fhspatch
+fi
+
 versionfile="include/patchlevel.h"
 
 version_major=`grep -m1 VERSION_MAJOR $versionfile | awk '{ print $3 }'`
@@ -41,6 +45,7 @@ sed -i \
 
 # fix src/Makefile
 sed -i \
+    -e "s|^GAME\s.*$|GAME = ${game}|" \
     -e 's|^CFLAGS.*$|CFLAGS = -O2 -fomit-frame-pointer -I../include|' \
     -e 's|^WINTTYLIB.*$|WINTTYLIB = -lncurses|' \
     src/Makefile
@@ -60,9 +65,43 @@ sed -i -r \
 
 # fix include/config.h
 sed -i -r \
-    -e "s|(^#\s*define\s+XI18N).*$|/* \1 */|" \
+    -e 's|(^#\s*define\s+XI18N).*$|/* \1 */|' \
     -e "s|(^#\s*define\s+WIZARD\s+).*$|\1\"`whoami`\"|" \
     -e "s|(^#\s*define\s+WIZARD_NAME\s+).*$|\1\"`whoami`\"|" \
     -e "s|(^#\s*define\s+COMPRESS\s+).*$|\1\"`which gzip`\"|" \
     -e 's|^.*/\*.*(#\s*define\s+DLB)\s+(\*/)?(.*$)|\1\3|' \
     include/config.h
+
+# fix for FHS patch
+if [ "$game" = "fhspatch" ] ; then
+    # delete temporary file
+    if [ -e util/dgn_yacc.c ]; then
+	rm util/dgn_yacc.c
+    fi
+
+    # remove 'register' word
+    sed -i \
+	-e 's|register char mabuf|char mabuf|' \
+	src/artifact.c
+
+    # add empty sentence
+    sed -i -r \
+	-e 's|(eated_fire:)|\1 ;|' \
+	src/explode.c
+
+    # avoid error 'virtual memory exhausted'
+    sed -i -r \
+	-e 's|(^CFLAGS.*$)|\1 -fno-inline|' \
+	src/Makefile
+
+    # fix dat/Makefile
+    sed -i \
+	-e 's|medium.des|Medium.des|' \
+	dat/Makefile
+
+    # fix Makefile
+    sed -i \
+	-e 's|sanctum.lev|sanct-?.lev|' \
+	-e 's|valley.lev|valley-?.lev|' \
+	Makefile
+fi
