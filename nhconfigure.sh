@@ -1,7 +1,29 @@
 #!/bin/sh
 
+game=`grep '^GAME ' -m1 Makefile | awk '{ print $3 }'`
+
+if [ -n "`grep -i -m1 sporkhack include/patchlevel.h`" ] ; then
+    game=sporkhack
+fi
+
+if [ -n "`grep -i -m1 jsporkhack include/config.h`" ] ; then
+    game=jsporkhack
+fi
+
+versionfile="include/patchlevel.h"
+
+version_major=`grep -m1 VERSION_MAJOR $versionfile | awk '{ print $3 }'`
+version_minor=`grep -m1 VERSION_MINOR $versionfile | awk '{ print $3 }'`
+patchlevel=`egrep -m1 "define\s+PATCHLEVEL" $versionfile | awk '{ print $3 }'`
+
+# echo game version
+echo "[${game} ${version_major}.${version_minor}.${patchlevel}]"
+
+echo "Modifying Makefiles and Headers."
+
 # fix Makefile
 sed -i \
+    -e "s|^GAME\s.*$|GAME = ${game}|" \
     -e 's|^GAMEGRP.*$|GAMEGRP = games|' \
     -e 's|^GAMEPERM.*$|GAMEPERM = 02755|' \
     -e 's|^FILEPERM.*$|FILEPERM = 0664|' \
