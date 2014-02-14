@@ -81,27 +81,21 @@ if [ "$game" = "fhspatch" ] ; then
 
     # remove 'register' word
     sed -i \
-	-e 's|register char mabuf|char mabuf|' \
-	src/artifact.c
-
-    # add empty sentence
-    sed -i -r \
-	-e 's|(eated_fire:)|\1 ;|' \
-	src/explode.c
+	-e 's|register coord cc|coord cc|' \
+	src/mklev.c
 
     # avoid error 'virtual memory exhausted'
     sed -i -r \
 	-e 's|(^CFLAGS.*$)|\1 -fno-inline|' \
 	src/Makefile
 
-    # fix dat/Makefile
-    sed -i \
-	-e 's|medium.des|Medium.des|' \
-	dat/Makefile
-
-    # fix Makefile
-    sed -i \
-	-e 's|sanctum.lev|sanct-?.lev|' \
-	-e 's|valley.lev|valley-?.lev|' \
-	Makefile
+    # ignore non-match prototype
+    sed -i -r \
+        -e 's|(^E.*spec_applies_wield.*$)|/* \1 */|' \
+        -e 's|(^E.*spec_applies_class.*$)|/* \1 */|' \
+	include/extern.h
 fi
+
+case "$game" in
+    "fhspatch" ) sed -i 's|nethackrc|fhspatchrc|' src/files.c ;;
+esac
